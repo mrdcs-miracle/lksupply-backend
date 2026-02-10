@@ -1,27 +1,35 @@
-package com.lksupply.lksupply2.Controllers;
+package com.lksupply.lksupply2.Controller;
 
 import com.lksupply.lksupply2.entity.*;
 import com.lksupply.lksupply2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.List;
 
-@RestController @RequestMapping("/api")
+@RestController
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class DashboardController {
-    @Autowired private ActivityLogRepository logRepo;
-    @Autowired private MarketplaceRepository marketRepo;
+    @Autowired
+    private ActivityLogRepository logRepo;
+    @Autowired
+    private MarketplaceRepository marketRepo;
 
     // Logs
     @GetMapping("/logs/recent")
-    public List<ActivityLog> getRecentLogs() { return logRepo.findTop10ByOrderByTimestampDesc(); }
+    public List<ActivityLog> getRecentLogs() {
+        return logRepo.findTop10ByOrderByTimestampDesc();
+    }
 
     // Marketplace
     @GetMapping("/marketplace")
-    public List<MarketplaceItem> getItems() { return marketRepo.findAll(); }
+    public List<MarketplaceItem> getItems() {
+        return marketRepo.findAll();
+    }
 
     // 🟢 UPDATED: Handle Image Upload + Data
     @PostMapping("/marketplace")
@@ -33,7 +41,10 @@ public class DashboardController {
             @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
 
         MarketplaceItem item = new MarketplaceItem();
-        item.setName(name); item.setPrice(price); item.setType(type); item.setDescription(desc);
+        item.setName(name);
+        item.setPrice(price);
+        item.setType(type);
+        item.setDescription(desc);
 
         if (file != null && !file.isEmpty()) {
             // Save file to "uploads" folder
