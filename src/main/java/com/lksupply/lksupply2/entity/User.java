@@ -1,5 +1,6 @@
 package com.lksupply.lksupply2.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Data;
 

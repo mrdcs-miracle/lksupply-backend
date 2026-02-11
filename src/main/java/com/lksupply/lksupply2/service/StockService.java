@@ -1,6 +1,5 @@
 package com.lksupply.lksupply2.service;
 
-import com.lksupply.lksupply2.entity.ActivityLog;
 import com.lksupply.lksupply2.entity.Stock;
 import com.lksupply.lksupply2.repository.ActivityLogRepository;
 import com.lksupply.lksupply2.repository.StockRepository;
