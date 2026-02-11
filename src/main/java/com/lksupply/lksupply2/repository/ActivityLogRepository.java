@@ -1,6 +1,5 @@
 package com.lksupply.lksupply2.repository;
 
-import com.lksupply.lksupply2.entity.ActivityLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
