@@ -16,8 +16,7 @@ public class StockService {
     public List<Stock> getAllStocks() { return stockRepo.findAll(); }
 
     public Stock saveStock(Stock stock) {
-        // 🔴 FIX: Removed auto-calculation logic. 
-        // Now it will trust whatever status ("Critical", "Low", "Good") comes from the Frontend.
+        
         
         /* PREVIOUS LOGIC (CAUSING THE ISSUE):
            stock.setStatus(stock.getQuantity() < 100 ? "Critical" : stock.getQuantity() < 500 ? "Low" : "Good");
