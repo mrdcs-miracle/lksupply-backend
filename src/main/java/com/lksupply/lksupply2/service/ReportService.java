@@ -18,12 +18,12 @@ public class ReportService {
 
         for (Stock s : stocks) {
             csv.append(s.getId()).append(",")
-                    .append(s.getItemName()).append(",")
-                    .append(s.getLocation()).append(",")
-                    .append(s.getCategory()).append(",")
-                    .append(s.getQuantity()).append(",")
-                    .append(s.getPrice()).append(",") // 🟢 Added Price
-                    .append(s.getStatus()).append("\n");
+               .append(s.getItemName()).append(",")
+               .append(s.getLocation()).append(",")
+               .append(s.getCategory()).append(",")
+               .append(s.getQuantity()).append(",")
+               .append(s.getPrice()).append(",") //  Added Price
+               .append(s.getStatus()).append("\n");
         }
         return new ByteArrayInputStream(csv.toString().getBytes(StandardCharsets.UTF_8));
     }

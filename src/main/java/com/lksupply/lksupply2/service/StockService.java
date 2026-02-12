@@ -16,9 +16,8 @@ public class StockService {
     public List<Stock> getAllStocks() { return stockRepo.findAll(); }
 
     public Stock saveStock(Stock stock) {
-        // 🔴 FIX: Removed auto-calculation logic.
-        // Now it will trust whatever status ("Critical", "Low", "Good") comes from the Frontend.
-
+        
+        
         /* PREVIOUS LOGIC (CAUSING THE ISSUE):
            stock.setStatus(stock.getQuantity() < 100 ? "Critical" : stock.getQuantity() < 500 ? "Low" : "Good");
         */
@@ -37,17 +36,17 @@ public class StockService {
     }
 
     public void deleteStock(Long id) { stockRepo.deleteById(id); }
-
+    
     // Helper to fetch single stock (useful for edits)
     public Stock getStockById(Long id) {
         return stockRepo.findById(id).orElse(null);
     }
-
+    
     // Add Search if needed by controller
     public List<Stock> searchByCategory(String category) {
         return stockRepo.findByCategory(category);
     }
-
+    
     // Add Update logic to ensure ID is handled
     public Stock updateStock(Long id, Stock stock) {
         stock.setId(id);
