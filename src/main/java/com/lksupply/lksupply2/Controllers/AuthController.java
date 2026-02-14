@@ -18,7 +18,7 @@ public class AuthController {
 
     @Autowired private UserRepository userRepo;
     @Autowired private JwtUtils jwtUtils;
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
@@ -26,6 +26,30 @@ public class AuthController {
         user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
         return ResponseEntity.ok("User registered");
+    }
+
+    @PutMapping("/password")
+    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> request) {
+        String username = request.get("username"); // Passed from frontend
+        String oldPwd = request.get("oldPassword");
+        String newPwd = request.get("newPassword");
+
+        User user = userRepo.findByUsername(username).orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.status(404).body("User not found");
+        }
+
+        // 1. Check if old password matches
+        if (!encoder.matches(oldPwd, user.getPassword())) {
+            return ResponseEntity.status(401).body("Incorrect old password");
+        }
+
+        // 2. Encrypt and Save new password
+        user.setPassword(encoder.encode(newPwd));
+        userRepo.save(user);
+
+        return ResponseEntity.ok("Password updated successfully!");
     }
 
     @PostMapping("/login")
